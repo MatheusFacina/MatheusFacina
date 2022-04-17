@@ -12,7 +12,7 @@ def ask_ok(prompt, follow="Continando "):
                 print("\nPOR FAVOR DIGITE SIM OU NAO")
            
 if __name__ == "__main__":
-    whilhe True:
-        dataNasc = input("Data de nascimento com barras(ex. 01/01/1900): ")
-        if ask_ok("A data " + '\033[1m' + dataNasc + "\033[0;0m" +" está correta? ", "Continuando a data " + '\033[1m' + dataNasc + "\033[0;0m")==True:
+    while True:
+        dataNasc = input("Digite sua ata de nascimento com barras (ex. 01/01/1900): ")
+        if ask_ok("A data " + '\033[1m' + dataNasc + "\033[0;0m" +" está correta? ", "Continuando com a data: " + '\033[1m' + dataNasc + "\033[0;0m")==True:
             break
