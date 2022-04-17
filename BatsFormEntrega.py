@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 # pip install pandas
 # pip install docx
 # pip install docxtpl
 # pip install docx2pdf
-
-
-# In[3]:
 
 
 import pandas as pd
@@ -23,9 +17,6 @@ from datetime import datetime
 
 
 # **Funções basicas**
-
-# In[2]:
-
 
 def get_MonthName_Day_Year(dateEnglish):
     __months = ["nada",
@@ -50,48 +41,23 @@ def get_MonthName_Day_Year(dateEnglish):
 
 # **Buscando URL do google sheets para importar DataFrame**
 
-# In[12]:
-
-
 sheet_url = "https://docs.google.com/spreadsheets/d/1AAAAio2nLeJk64k4WW55opBOx3ESsCQcXg6lyPGhbZU/edit?resourcekey#gid=1249177938"
 url_1 = sheet_url.replace("/edit?resourcekey#gid=", "/export?format=csv&gid=")
 
-
-# In[14]:
-
-
 df = pd.read_csv(url_1)
 
-
-# In[15]:
-
-
 df_last = df.iloc[-1:]
-
-
-# In[16]:
-
 
 display(df_last)
 
 
 # **Preenchendo Template**
 
-# In[8]:
-
-
 default_dir = os.getcwd()
-
-
-# In[9]:
-
 
 print(os.getcwd())
 os.chdir(r"C:\Users\mathe\OneDrive\DeskMatheus\Nova pasta")
 print(os.getcwd())
-
-
-# In[ ]:
 
 
 document = Document(r'0. Formulário de Entrega_BATS_Modelo_AUto.docx')
@@ -101,9 +67,6 @@ template.save(r'autoTeste1.docx')
 
 
 # **Código final só rodar quando tiver pronto**
-
-# In[1]:
-
 
 import pandas as pd
 import os
@@ -184,10 +147,6 @@ def makeForm():
        
         convert(r'{}/Form de Entrega do pedido {} de {}.docx'.format(nome,idx, nome) )
 
-
-# In[4]:
-
-
 start_time = datetime.now()
 
 makeForm()
@@ -197,4 +156,3 @@ end_time = datetime.now()
 print('Duração: {}'.format(end_time - start_time))
 
 del start_time, end_time
-
