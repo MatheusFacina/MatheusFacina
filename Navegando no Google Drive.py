@@ -6,45 +6,27 @@
 
 # !pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
-
-# In[20]:
-
-
 import pandas as pd
 import os
 
-
-# In[10]:
-
-
 sheet_id = "1gJ8Gtb6r9vMIWSmE26KAuhoGGSf3FCVWpfPG1JqjPwc"
+
 sheet_name = "form test"
+
 url = f"https://docs.google.com/spreadsheets/d/1gJ8Gtb6r9vMIWSmE26KAuhoGGSf3FCVWpfPG1JqjPwc/edit?usp=sharing"
-
-
-# In[12]:
-
 
 sheet_url = "https://docs.google.com/spreadsheets/d/1gJ8Gtb6r9vMIWSmE26KAuhoGGSf3FCVWpfPG1JqjPwc/edit#gid=1207319876"
 url_1 = sheet_url.replace("/edit#gid=", "/export?format=csv&gid=")
 
-
-# In[13]:
-
-
 pd.read_csv(url_1)
-
 
 # In[22]:
 
-
 os.getcwd()
-
 
 # **primeiro fluxo de autenticação Drive API**
 
 # In[8]:
-
 
 # https://github.com/googleworkspace/python-samples/blob/master/drive/quickstart/quickstart.py
 
@@ -122,20 +104,12 @@ if __name__ == '__main__':
     main()
 # [END drive_quickstart]
 
-
-# In[4]:
-
-
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
 gauth = GoogleAuth()
 gauth.LocalWebserverAuth() # client_secrets.json need to be in the same directory as the script
 drive = GoogleDrive(gauth)
-
-
-# In[6]:
-
 
 # https://stackoverflow.com/questions/24419188/automating-pydrive-verification-process
 
@@ -171,10 +145,6 @@ gauth.SaveCredentialsFile("mycreds.txt")
 
 drive = GoogleDrive(gauth)
 
-
-# In[55]:
-
-
 # View all folders and file in your Google Drive
 fileList = drive.ListFile({'q': "mimeType = 'application/vnd.google-apps.folder' and title contains '8 - Anexe' and trashed=false"}).GetList()
 
@@ -192,24 +162,12 @@ for file in fileList:
 
 print(file)
 
-
-# In[65]:
-
-
 file1 = drive.CreateFile({'id': "1yC1LFz1rlFkb0lh63fuQYmY78J7DXSJc"})
 file1.Upload()
 file1['parents'] = [{"kind": "drive#parentReference", "id": "destination_folder_id"}]
 file1.Upload()
 
-
-# In[12]:
-
-
 import quickstart
-
-
-# In[39]:
-
 
 """Shows basic usage of the Drive v3 API.
 Prints the names and ids of the first 10 files the user has access to.
@@ -249,16 +207,13 @@ try:
 except HttpError as error:
     # TODO(developer) - Handle errors from drive API.
     print(f'An error occurred: {error}')
-
-
-# In[32]:
-
+    
 
 # View all folders and file in your Google Drive
+
 creds = None
-# The file token.json stores the user's access and refresh tokens, and is
-# created automatically when the authorization flow completes for the first
-# time.
+# The file token.json stores the user's access and refresh tokens, and is created automatically when the authorization flow completes for the first time.
+
 if os.path.exists('token.json'):
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
 # If there are no (valid) credentials available, let the user log in.
