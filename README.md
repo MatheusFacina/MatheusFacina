@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @MatheusFacina
 - 👀 I’m an Economist focused on Finance and Technology
 - 🌱 I’m currently learning Python, SQL, R, Data Analytics and Data Automation
-- 💞️ I’m looking to collaborate on Automation and Analytics projects
+- 💞️ I’m looking to collaborate on Automation and Analytics projects focused on Finance and Business
 - 📫 How to reach me: matheusfacinadavid@gmail.com
 
 <!---
