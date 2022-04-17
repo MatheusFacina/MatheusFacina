@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @MatheusFacina
 - 👀 I’m interested in Finance and Technology
-- 🌱 I’m currently learning Python, SQL, R and Data Analytics
+- 🌱 I’m currently learning Python, SQL, R, Data Analytics and Automation
 - 💞️ I’m looking to collaborate on Automation and Analytics projects
 - 📫 How to reach me 21999877706
 
