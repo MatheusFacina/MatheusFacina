@@ -1,31 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# **Web Scrapping 1**
-
 # **PARA FAZER**
 #     
 #     - criar uma sublista com os que não foram baixados, em DF que possa ser lido novamente e baixar
 #     - fazer os downloads em um ambiente separado da pasta final para não ficar listando todos os arquivos todas as vezes
-#     - separar os do IR Trade automaticamente
+#     - separar os do xx automaticamente
 
 # **Instalando e importantdo bibliotecas**
-
-# In[1]:
-
 
 # !pip install selenium
 # !pip install pandas
 # !pip install openpyxl
-
-
-# In[2]:
-
-
-# os.mkdir(r'C:\Users\Matheus Silva\Jobin\Compartilhado Jobin - General\BACKOFFICE COMERCIAL\Matheus\Matheus - Desk\pastaTeste')
-
-
-# In[2]:
 
 
 import time
@@ -41,16 +27,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.common.action_chains import ActionChains
 
 
-# In[6]:
-
-
-
-
-
 # **Definindo Funções**
-
-# In[3]:
-
 
 # Função que apenas pergunta se pode continuar, sim ou nao
 
@@ -66,27 +43,11 @@ def ask_ok(prompt, follow="Continando "):
             else:
                 print("\nPOR FAVOR DIGITE SIM OU NAO")
 
-
-# In[4]:
-
-
 # variável para esperar
 
 x=0.5
 
-
-# In[7]:
-
-
-basicfunctions.ask_ok("Deseja Continuar?")
-
-
-# In[5]:
-
-
-# testando a função de espera acima
-
-
+# testando a função de espera acima pra ver velocidade
 
 start_time = datetime.now()
 
@@ -101,22 +62,14 @@ for i in range(10):
     print('Duração: {}'.format(end_time - start_time))
 
 
-# In[6]:
-
-
-default_dir = os.getcwd() #função da biblioteca os para pegar a current working dir
-
-
-# In[7]:
+#função da biblioteca os para pegar a current working dir
+default_dir = os.getcwd() 
 
 
 print(default_dir)
 
 
 # **Lendo as contas no excel**
-
-# In[51]:
-
 
 DIR=os.getcwd()
 print(DIR)
@@ -132,10 +85,6 @@ print(os.getcwd())
 
 del DIR
 
-
-# In[52]:
-
-
 # contas.xlsx é o nome da planilha excel na mesma pasta que o código que aqui é alocada em contas_df com o Pandas
 
 display(contas_df)
@@ -143,17 +92,12 @@ display(contas_df)
 
 # **Pedindo datas**
 
-# In[13]:
-
 
 while True:
     dataInicio = input("Data inicial dos extratos com barras: ")
     dataFinal = input("Data final dos extratos com barras: ")
     if ask_ok("As datas " + '\033[1m' + dataInicio + " a " + dataFinal + "\033[0;0m" +" estão corretas? ", "Continuando com o período de " + '\033[1m' + dataInicio + " a " + dataFinal + "\033[0;0m")==True:
-        break
 
-
-# In[14]:
 
 
 # Variável com as datas concatenadas e trocando / por - para não dar problema com os caminhos de arquivos do windows
@@ -161,17 +105,10 @@ while True:
 datas = (dataInicio + "_" + dataFinal).replace(r"/","-")
 
 
-# In[15]:
-
-
 print(datas)
 
 
-# **Mudando o local onde o chrome salva arquivos e Abrindo uma janela do Chrome automatizada chamada driver**
-#    
-
-# In[16]:
-
+# **Mudando o local onde o chrome salva arquivos e Abrindo uma janela do Chrome automatizada chamada driver**   
 
 # variável de onde vai baixar aqrquivos pelo chrome seguido de uma pergunta se está correto e deseja continuar
 
@@ -181,11 +118,6 @@ while True:
     if ask_ok("Você digitou " + '\033[1m' + ondebaixar + "\033[0;0m" +"? ", "Continuando com o caminho:\n" + '\033[1m' + ondebaixar)==True:
         break
 
-        
-
-
-# In[17]:
-
 
 if ondebaixar =="":
     ondebaixar=os.path.join(os.getcwd(), datas)
@@ -193,13 +125,7 @@ else:
     ondebaixar=os.path.join(ondebaixar, datas)
 
 
-# In[18]:
-
-
 print(ondebaixar)
-
-
-# In[19]:
 
 
 # colocando o caminho escolhido como caminho de downloads nas opções do chrome e abilitando downloads multiplos
@@ -215,7 +141,7 @@ if ondebaixar == "":
     driver = webdriver.Chrome("chromedriver",options=chromeOptions)
     driver = webdriver.Chrome("chromedriver")
     driver.set_window_size(1296, 1000)
-    driver.get("https://access.btgpactualdigital.com/login/externo")
+    driver.get("https://example.com")
     
     
 else:
@@ -226,16 +152,13 @@ else:
     chromeOptions.add_experimental_option("prefs",prefs)
     driver = webdriver.Chrome("chromedriver",options=chromeOptions)
     driver.set_window_size(1296, 1000)
-    driver.get("https://access.btgpactualdigital.com/login/externo")
+    driver.get("https://example.com")
 
 del chromeOptions
     
 while True:
-    if ask_ok("Por favor, entre com as credenciais na BTG e digite SIM ")==True:
+    if ask_ok("Por favor, entre com as credenciais na example e digite SIM ")==True:
         break
-
-
-# In[20]:
 
 
 #Mudando dir pra pasta mãe de ondebaixar
@@ -243,13 +166,7 @@ while True:
 os.chdir(os.path.dirname(ondebaixar))
 
 
-# In[21]:
-
-
 print(os.getcwd())
-
-
-# In[22]:
 
 
 # Criando pasta dentro da pasta atual com nome de datas e mudando a dir para ela
@@ -260,10 +177,6 @@ try:
 except Exception as e: 
     print(e)
 
-
-# In[23]:
-
-
 print(os.getcwd())
 
 
@@ -273,9 +186,6 @@ print(os.getcwd())
 #    Preenchendo campos com datas Inicio e Final(perguntadas acima
 #    Apertando Enter para Solicitar
 
-# In[27]:
-
-
 for idx, conta, nome in contas_df.itertuples():
     
     try:
@@ -284,26 +194,41 @@ for idx, conta, nome in contas_df.itertuples():
 
         start_time = datetime.now()
 
-        driver.get('https://access.btgpactualdigital.com/op/')
+        driver.get('https://example.com')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[1]/input'))).send_keys(format(conta,'09d'))
+        
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[2]/div/a'))).click()
+        
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents"]/a')))
+        
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="menu-list-history"]/a'))).click()
+        
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents"]/a'))).click()
+        
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents-extract"]/a'))).click()
+        
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/nav/li[2]'))).click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/div/
+                                                                        div/nav/li[2]'))).click()
+                                                                        
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[1]/form/div[1]/div[1]/div/datepicker/input'))).send_keys(dataInicio)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/
+                                                                        div/div/ng-include[2]/div/div[1]/form/div[1]/div[1]/
+                                                                        div/datepicker/input'))).send_keys(dataInicio)
+                                                                        
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[1]/form/div[1]/div[2]/div/datepicker/input'))).send_keys(dataFinal)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/div/div/
+                                                                        ng-include[2]/div/div[1]/form/div[1]/div[2]/div/datepicker/input'))).send_keys(dataFinal)
+                                                                        
         time.sleep(1)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[1]/form/div[1]/div[2]/div/datepicker/input'))).send_keys(Keys.ENTER)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/div/div/
+                                                                        ng-include[2]/div/div[1]/form/div[1]/div[2]/div/datepicker/input'))).send_keys(Keys.ENTER)
+                                                                        
         time.sleep(2)
         
         end_time = datetime.now()
@@ -316,134 +241,8 @@ for idx, conta, nome in contas_df.itertuples():
 
 
 # **Fazer dowload dos extratos anteriormente solicitados**
-
-# In[36]:
-
-
-os.chdir(ondebaixar)
-ultimo_nome_baixado="aoisjda1doiasjd31276alskidn1" #coloquei qualquer string que nunca apareceria apenas para iniciar a variável
-listaes=[] #uma lista com as excessões que podem aparecer para saber depois quais deram errrado e baixar manualmente
-total_start_time = datetime.now()
-
-for idx, conta, nome in contas_df.itertuples():
-    
-    try:
-    
-        print (idx+1,f"{conta:09d}",nome + " Fazendo")
-        
-        start_time = datetime.now()
-        
-        driver.get('https://access.btgpactualdigital.com/op/')
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[1]/input'))).send_keys(format(conta,'09d'))
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[2]/div/a'))).click()
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents"]/a')))
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="menu-list-history"]/a'))).click()
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents"]/a'))).click()
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents-extract"]/a'))).click()
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/nav/li[2]' ))).click()
-        time.sleep(x)
-        body = driver.find_element(By.XPATH, '/html/body')
-        body.send_keys(Keys.PAGE_DOWN)
-        time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/thead/tr/th[1]'))).click()
-        time.sleep(1)
-        
-        nfiles0=len(os.listdir(os.getcwd()))
-        
-        try:
-    
-            # Verifica se o primeiro da lista é o da data referente
-            if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[3]' ))).text == dataInicio + " até " + dataFinal:
-                WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[5]/button'))).send_keys(Keys.RETURN)
-                pass
-            
-        except Exception as e:
-            print(e)
-            listaes.append(conta + '_' + nome)   
-            end_time = datetime.now()
-            print(idx+1,f"{conta:09d}", nome + '\033[1m' + ' NÂO ' + '\033[0;0m' + ' foi feito em {}'.format(end_time-start_time))
-            continue
-                
-        # quantidade de arquivos na pasta alvo
-        
-        # baixar o primeiro download da lista por ordem de solicitação
-#        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[5]/button'))).send_keys(Keys.RETURN)
-
-        # baixar o y download da lista
-#         y='1'
-#         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr['+ y +']/td[5]/button'))).send_keys(Keys.RETURN)
-
-        time.sleep(x)
-
-        cont=0
-        while cont<20: # quando vir que a quantidade de arquivos aumentou(baixou um novo) ele passa pra próxima 
-            time.sleep(0.5)
-            
-            nfiles1=len(os.listdir(os.getcwd()))
-
-            if nfiles1>nfiles0:
-                break
-            else:
-                cont=cont+1
-        
-        time.sleep(1)      
-        
-        # checar se fez download certo
-        files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime) # cria uma lista ordenada pela data de modificação        
-        while True:
-            time.sleep(1)
-            if files == [] or 'crdownload' in files[-1] or '.tmp' in files[-1] : # caso o último item da lista baixado tenha a string crdownload
-                files = sorted(os.listdir(os.getcwd()), key=os.path.getmtime)
-                continue
-            
-            elif nfiles0==nfiles1:
-                listaes.append(conta + '_' + nome)
-                end_time = datetime.now()
-                print(idx+1,f"{conta:09d}", nome + ' NÂO foi feito em {}'.format(end_time-start_time))
-                break
-            
-            else:
-                
-                try:
-                    
-                    os.rename(files[-1], nome + "_" + files[-1])
-                    end_time = datetime.now()
-                    print(idx+1,f"{conta:09d}", nome + ' Feito em {}'.format(end_time-start_time))
-                    break
-               
-                except Exception as e:
-                    print(e)
-                    continue
-                
-    except Exception as e:
-        print(e)
-        listaes.append(conta + '_' + nome)   
-        end_time = datetime.now()
-        print(idx+1,f"{conta:09d}", nome + ' NÂO foi feito em {}'.format(end_time-start_time))
-        continue
-                
-del nfiles0, nfiles1, files, cont
-
-total_end_time=datetime.now()
-
-print("Terminamos em {}".format(total_end_time-total_start_time))
-
-if listaes == []:
-    print("Todos os extratos foram baixados com sucesso")
-else:
-    print("Faltaram os seguintes:", listaes)
-
-
 # Versão 2
 
-# In[53]:
-
 
 os.chdir(ondebaixar)
 ultimo_nome_baixado="aoisjda1doiasjd31276alskidn1" #coloquei qualquer string que nunca apareceria apenas para iniciar a variável
@@ -458,7 +257,7 @@ for idx, conta, nome in contas_df.itertuples():
         
         start_time = datetime.now()
         
-        driver.get('https://access.btgpactualdigital.com/op/')
+        driver.get('https://access.examplex.com/op/')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[1]/input'))).send_keys(format(conta,'09d'))
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[2]/div/a'))).click()
@@ -471,12 +270,14 @@ for idx, conta, nome in contas_df.itertuples():
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents-extract"]/a'))).click()
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/nav/li[2]' ))).click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/div/div/
+                                                                        nav/li[2]' ))).click()
         time.sleep(x)
         body = driver.find_element(By.XPATH, '/html/body')
         body.send_keys(Keys.PAGE_DOWN)
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/thead/tr/th[1]'))).click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/div/div/
+                                                                        ng-include[2]/div/div[2]/div/table/thead/tr/th[1]'))).click()
         time.sleep(1)
         
         nfiles0=len(os.listdir(os.getcwd()))
@@ -484,8 +285,14 @@ for idx, conta, nome in contas_df.itertuples():
         try:
     
             # Verifica se o primeiro da lista é o da data referente
-            if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[3]' ))).text == dataInicio + " até " + dataFinal:
-                WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[5]/button'))).send_keys(Keys.RETURN)
+            if WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/
+                                                                              div/div/ng-include[2]/div/div[2]/div/table/tbody/
+                                                                              tr[1]/td[3]' ))).text == dataInicio + " até " + dataFinal:
+                                                                              
+                WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/documents-extract/
+                                                                               div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[5]/
+                                                                               button'))).send_keys(Keys.RETURN)
+                                                                               
                 pass
             
         except Exception as e:
@@ -493,16 +300,7 @@ for idx, conta, nome in contas_df.itertuples():
             listaes.append(nome)   
             end_time = datetime.now()
             print(idx+1,f"{conta:09d}", nome + '\033[1m' + ' NÂO ' + '\033[0;0m' + ' foi feito em {}'.format(end_time-start_time))
-            continue
-                
-        # quantidade de arquivos na pasta alvo
-        
-        # baixar o primeiro download da lista por ordem de solicitação
-#        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr[1]/td[5]/button'))).send_keys(Keys.RETURN)
-
-        # baixar o y download da lista
-#         y='1'
-#         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/documents-extract/div/div/ng-include[2]/div/div[2]/div/table/tbody/tr['+ y +']/td[5]/button'))).send_keys(Keys.RETURN)
+            continue            
 
         time.sleep(x)
 
@@ -565,13 +363,8 @@ else:
     print("Faltaram os seguintes:", listaes)
 
 
-# In[37]:
-
-
 os.chdir(default_dir)
 
-
-# In[31]:
 
 
 print(files[-1])
@@ -579,7 +372,6 @@ print(files[-1])
 
 # **Apertando Page Down no body da página**
 
-# In[ ]:
 
 
 # body = driver.find_element(By.XPATH, '/html/body')
@@ -588,7 +380,6 @@ print(files[-1])
 
 # **Solicitar notas de corretagem**
 
-# In[38]:
 
 
 os.chdir(ondebaixar)
@@ -601,7 +392,7 @@ for idx, conta, nome in contas_df.itertuples():
 
         start_time = datetime.now()
 
-        driver.get('https://access.btgpactualdigital.com/op/')
+        driver.get('https://example.com/op/')
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="mainNavbar"]/form/div[1]/input'))).send_keys(format(conta,'09d'))
         time.sleep(x)
@@ -613,20 +404,20 @@ for idx, conta, nome in contas_df.itertuples():
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'//*[@id="submenu-documents"]/a'))).click()
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/navbar/div/nav[2]/ul/li[3]/ul/li[4]/ul/li[4]/a'))).click()
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/menu/div/div/div/div/navbar/div/nav[2]/ul/li[3]/ul/li[4]/ul/li[4]/a'))).click()
         time.sleep(x)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="period"]'))).send_keys("Personalizado")
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[1]/div[4]/datepicker/input'))).send_keys(dataInicio)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[1]/div[4]/datepicker/input'))).send_keys(dataInicio)
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[1]/div[5]/datepicker/input'))).send_keys(dataFinal)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[1]/div[5]/datepicker/input'))).send_keys(dataFinal)
         time.sleep(x)
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[2]/button'))).send_keys(Keys.RETURN)
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[1]/fieldset/div[2]/button'))).send_keys(Keys.RETURN)
         time.sleep(x)
         
         nfiles0=len(os.listdir(ondebaixar))
         
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/btgmenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[2]/div/div/button'))).send_keys(Keys.RETURN)
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH,'/html/body/examplemenu/div/div/div/div/ui-view/history-documents-trade-tickets/div/div/ng-include[1]/div/div[2]/div/div/button'))).send_keys(Keys.RETURN)
         time.sleep(x)
         
         cont=0
@@ -675,10 +466,7 @@ else:
     print("Faltaram os seguintes:", listaes)
 
 
-# In[ ]:
-
-
-os.chdir(r'C:\Users\Matheus Silva\Jobin\Compartilhado Jobin - General\BACKOFFICE COMERCIAL\Matheus\Matheus - Desk\Nova pasta')
+os.chdir(r'C:\Users\xxx\pasta')
 
 
 # **RISCOS SISTEMICOS:**\
