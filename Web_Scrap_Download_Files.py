@@ -96,7 +96,8 @@ display(contas_df)
 while True:
     dataInicio = input("Data inicial dos extratos com barras: ")
     dataFinal = input("Data final dos extratos com barras: ")
-    if ask_ok("As datas " + '\033[1m' + dataInicio + " a " + dataFinal + "\033[0;0m" +" estão corretas? ", "Continuando com o período de " + '\033[1m' + dataInicio + " a " + dataFinal + "\033[0;0m")==True:
+    if ask_ok("As datas " + '\033[1m' + dataInicio + " a " + dataFinal + "\033[0;0m" +" estão corretas? ", "Continuando com o período de " + '\033[1m' + 
+              dataInicio + " a " + dataFinal + "\033[0;0m")==True:
 
 
 
