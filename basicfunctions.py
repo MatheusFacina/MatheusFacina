@@ -13,6 +13,6 @@ def ask_ok(prompt, follow="Continando "):
            
 if __name__ == "__main__":
     while True:
-        dataNasc = input("Digite sua ata de nascimento com barras (ex. 01/01/1900): ")
+        dataNasc = input("Digite sua data de nascimento com barras (ex. 01/01/1900): ")
         if ask_ok("A data " + '\033[1m' + dataNasc + "\033[0;0m" +" está correta? ", "Continuando com a data: " + '\033[1m' + dataNasc + "\033[0;0m")==True:
             break
